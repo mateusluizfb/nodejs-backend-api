@@ -4,11 +4,15 @@ const { Profile, Contract, Job } = sequelize.models
 
 describe('PayJobService', () => {
   it('pays a job', async () => {
+    await Profile.sync({ force: true });
+    await Contract.sync({ force: true });
+    await Job.sync({ force: true });
+
     const client = await Profile.create({
       firstName: 'John',
       lastName: 'Doe',
       profession: 'Developer',
-      balance: 100,
+      balance: 1000,
       type: 'client'
     })
 
@@ -16,7 +20,7 @@ describe('PayJobService', () => {
       firstName: 'Google',
       lastName: 'Inc',
       profession: 'company',
-      balance: 1000,
+      balance: 0,
       type: 'contractor'
     })
 
@@ -33,10 +37,12 @@ describe('PayJobService', () => {
       ContractId: 1
     })
 
-    const paidJob = await PayJobService.call({ id: job.id, profile_id: contractor.id })
+    const paidJob = await PayJobService.call({ id: job.id, profile_id: client.id })
     await contractor.reload()
+    await client.reload()
 
     expect(paidJob.paid).toEqual(true)
-    expect(contractor.balance).toEqual(800)
+    expect(contractor.balance).toEqual(200)
+    expect(client.balance).toEqual(800)
   })
 })
