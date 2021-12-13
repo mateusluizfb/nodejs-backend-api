@@ -10,7 +10,6 @@ const ContractsController = {
   },
 
   getNonTerminatedContracts: async (req, res) =>{
-    const {id} = req.params
     const contract = await FindNonTerminatedContractService.call({profile_id: req.profile.id })
     if(!contract) return res.status(404).end()
     res.json(contract)
