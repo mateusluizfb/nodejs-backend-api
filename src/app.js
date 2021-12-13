@@ -12,5 +12,6 @@ app.set('models', sequelize.models)
 app.get('/contracts/:id', getProfile, ContractsController.getContract)
 app.get('/contracts', getProfile, ContractsController.getNonTerminatedContracts)
 app.get('/jobs/unpaid', getProfile, JobsController.getUnpaid)
+app.get('/jobs/:job_id/pay', getProfile, JobsController.pay)
 
 module.exports = app;
