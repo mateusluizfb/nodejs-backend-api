@@ -20,5 +20,6 @@ app.get('/jobs/unpaid', getProfile, JobsController.getUnpaid)
 app.post('/jobs/:job_id/pay', getProfile, JobsController.pay)
 app.post('/balances/deposit/:userId', getProfile, BalancesController.deposit)
 app.get('/admin/best-profession', getProfile, AdminController.findBestProfession)
+app.get('/admin/best-clients', getProfile, AdminController.findBestClients)
 
 module.exports = app;
