@@ -19,7 +19,11 @@ const FindBestProfessionService = {
       raw: true
     })
 
-    return result[0].profession
+    const bestPaidProfession = result[0]
+
+    if (!bestPaidProfession) return null
+
+    return bestPaidProfession.profession
   }
 }
 
