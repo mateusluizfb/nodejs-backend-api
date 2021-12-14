@@ -1,6 +1,9 @@
 const PayJobService = require('../services/payJobService');
 
 const JobsController = {
+
+  // GET
+  // route: /jobs/unpaid
   getUnpaid: async (req, res) => {
     const {id} = req.params
 
@@ -8,6 +11,10 @@ const JobsController = {
     res.json(jobs)
   },
 
+  // GET
+  // route: /jobs/:job_id/pay
+  // params:
+  // - job_id: <Number>
   pay: async (req, res) => {
     const { job_id } = req.params
 

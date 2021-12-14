@@ -1,6 +1,11 @@
 const DepositMoneyService = require('../services/depositMoneyService')
 
 const BalancesController = {
+  // POST
+  // route: /balances/deposit/:userId
+  // params:
+  // - userId: <Number>
+  // - amount: <Number>
   deposit: async (req, res) =>{
     const { userId } = req.params
     const amount = req.body.amount

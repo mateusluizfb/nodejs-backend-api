@@ -2,6 +2,11 @@ const FindBestProfessionService = require('../services/findBestProfessionService
 const FindBestClientsService = require('../services/findBestClientsService')
 
 const BalancesController = {
+  // GET
+  // route: /admin/best-profession?start=<date>&end=<date>
+  // query params:
+  // - start=<'YY/MM/dd'>
+  // - end=<'YY/MM/dd'>
   findBestProfession: async (req, res) =>{
     const { start, end } = req.query
 
@@ -14,6 +19,12 @@ const BalancesController = {
     res.json({ profession })
   },
 
+  // GET
+  // route: /admin/best-clients?start=<date>&end=<date>&limit=<integer>
+  // query params:
+  // - start=<'YY/MM/dd'>
+  // - end=<'YY/MM/dd'>
+  // - limit=<Number>
   findBestClients: async (req, res) =>{
     const { start, end, limit } = req.query
 
