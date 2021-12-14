@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { sequelize } = require('./model')
 const { getProfile } = require('./middleware/getProfile')
-const { ContractsController, JobsController } = require('./controllers')
+const { ContractsController, JobsController, BalancesController } = require('./controllers')
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,5 +13,6 @@ app.get('/contracts/:id', getProfile, ContractsController.getContract)
 app.get('/contracts', getProfile, ContractsController.getNonTerminatedContracts)
 app.get('/jobs/unpaid', getProfile, JobsController.getUnpaid)
 app.post('/jobs/:job_id/pay', getProfile, JobsController.pay)
+app.post('/balances/deposit/:userId', getProfile, BalancesController.deposit)
 
 module.exports = app;

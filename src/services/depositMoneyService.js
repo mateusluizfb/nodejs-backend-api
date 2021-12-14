@@ -35,7 +35,6 @@ const DepositMoneyService = {
   call: async ({ amount, originProfileId, destinationProfileId }) => {
     const originProfile = await Profile.findOne({ where: { id: originProfileId } })
     const destinationProfile = await Profile.findOne({ where: { id: destinationProfileId } })
-
     if (await isDepositValid(amount, originProfile)) {
       await depositMoney(amount, originProfile, destinationProfile)
       return await originProfile.reload()
