@@ -16,6 +16,14 @@ describe('DepositMoneyService', () => {
       type: 'client'
     })
 
+    const client2 = await Profile.create({
+      firstName: 'Johnny',
+      lastName: 'Doe',
+      profession: 'Developer',
+      balance: 0,
+      type: 'client'
+    })
+
     const contractor = await Profile.create({
       firstName: 'Google',
       lastName: 'Inc',
@@ -37,10 +45,15 @@ describe('DepositMoneyService', () => {
       ContractId: 1
     })
 
-    const paidJob = await DepositMoneyService.call({ amount: 100, id: client.id })
-    await client.reload()
+    await DepositMoneyService.call(
+      { amount: 100, originProfileId: client.id, destinationProfileId: client2.id }
+    )
 
-    expect(client.balance).toEqual(1100)
+    await client.reload()
+    await client2.reload()
+
+    expect(client.balance).toEqual(900)
+    expect(client2.balance).toEqual(100)
   })
 
   it('doesnt deposit money for more than 25% of total jobs to pay', async () => {
@@ -53,6 +66,14 @@ describe('DepositMoneyService', () => {
       lastName: 'Doe',
       profession: 'Developer',
       balance: 1000,
+      type: 'client'
+    })
+
+    const client2 = await Profile.create({
+      firstName: 'Johnny',
+      lastName: 'Doe',
+      profession: 'Developer',
+      balance: 0,
       type: 'client'
     })
 
@@ -90,10 +111,14 @@ describe('DepositMoneyService', () => {
       ContractId: contract2.id
     })
 
-    const paidJob = await DepositMoneyService.call({ amount: 300, id: client.id })
-    await client.reload()
+    await DepositMoneyService.call(
+      { amount: 1300, originProfileId: client.id, destinationProfileId: client2.id }
+    )
 
-    expect(paidJob).toEqual(null)
+    await client.reload()
+    await client2.reload()
+
     expect(client.balance).toEqual(1000)
+    expect(client2.balance).toEqual(0)
   })
 })
