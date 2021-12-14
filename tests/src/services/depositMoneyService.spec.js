@@ -35,14 +35,14 @@ describe('DepositMoneyService', () => {
     const contract = await Contract.create({
       terms: 'this is a term',
       status: 'in_progress',
-      ClientId: 1,
-      ContractorId: 2
+      ClientId: client.id,
+      ContractorId: contractor.id
     })
 
     const job = await Job.create({
       description: 'development work',
       price: 200,
-      ContractId: 1
+      ContractId: contract.id
     })
 
     await DepositMoneyService.call(
