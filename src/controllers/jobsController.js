@@ -1,3 +1,4 @@
+const FindUnpaidJobsService = require('../services/findUnpaidJobsService');
 const PayJobService = require('../services/payJobService');
 
 const JobsController = {
