@@ -8,7 +8,6 @@ async function descreaseBalance(client, job) {
   const newBalance = client.balance - job.price
 
   return sequelize.transaction(async (t) => {
-    console.log(contractor);
     await contractor.update({ balance: (contractor.balance + job.price) }, { transaction: t })
     await client.update({ balance: newBalance }, { transaction: t })
     await job.update({ paid: true, paymentDate: new Date().toISOString() }, { transaction: t })
