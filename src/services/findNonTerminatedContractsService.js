@@ -2,10 +2,10 @@ const { sequelize } = require('../model')
 const { Op } = require('sequelize')
 
 const FindNonTerminatedContractsService = {
-  call: async ({ id, profile_id }) => {
+  call: async ({ profile_id }) => {
     const { Contract } = sequelize.models
 
-    return await Contract.findOne({
+    return await Contract.findAll({
       where: {
         status: ['new', 'in_progress'],
         [Op.or]: [

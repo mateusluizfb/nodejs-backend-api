@@ -17,7 +17,10 @@ const FindUnpaidJobsService = {
         }
       }],
       where: {
-        paid: true
+        [Op.or]: [
+          { paid: null },
+          { paid: false },
+        ]
       }
     })
   }

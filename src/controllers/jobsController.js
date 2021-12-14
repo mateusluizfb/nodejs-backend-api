@@ -5,8 +5,6 @@ const JobsController = {
     const {id} = req.params
 
     const jobs = await FindUnpaidJobsService.call({profile_id: req.profile.id })
-
-    if(!jobs) return res.status(404).end()
     res.json(jobs)
   },
 
